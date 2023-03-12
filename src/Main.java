@@ -1,4 +1,4 @@
-package test;
+//package test;
 
 import static java.lang.System.out;
 import static primitives.Util.isZero;
@@ -79,10 +79,10 @@ public final class Main {
          out.println("ERROR: the normalized vector is opposite to the original one");
 
       // Test operations with points and vectors
-      point p1 = new point(1, 2, 3, xyz);
-      if (!(p1.add(new Vector(-1, -2, -3)).equals(new point(0, 0, 0, xyz))))
+      point p1 = new point(1, 2, 3);
+      if (!(p1.add(new Vector(-1, -2, -3)).equals(new point(0, 0, 0))))
          out.println("ERROR: Point + Vector does not work correctly");
-      if (!new Vector(1, 1, 1).equals(new point(2, 3, 4, xyz).subtract(p1)))
+      if (!new Vector(1, 1, 1).equals(new point(2, 3, 4).subtract(p1)))
          out.println("ERROR: Point - Point does not work correctly");
 
       out.println("If there were no any other outputs - all tests succeeded!");

@@ -2,7 +2,7 @@ package primitives;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.Vector;
+import primitives.Vector.*;
 
 public class point {
     final Double3 xyz;
@@ -12,16 +12,29 @@ public class point {
     point(Double3 xyz) {
         this.xyz = xyz;
     }
+    //  return new Vector((p0.xyz).subtract(xyz));
 
     public Vector subtract(point p0) {
-        return new Vector(this.xyz.subtract(p0.xyz));
- //  return new Vector(p0.xyz.subtract(this.xyz));
+       return new Vector(xyz.subtract(p0.xyz));
     }
+
    public point add(Vector v0)
     {
-        Point p0=v0(point);
-        return  p0.xyz.add(xyz);
-      //  return new point(d0);
-     //   return this.xyz.add(((Point)v0).xyz);
+        return  new point((((point)v0).xyz).add(xyz));
     }
+    public double distanceSquared(point p0)
+    {
+        Double3 d0=xyz.subtract(p0.xyz);
+        return d0.d1* d0.d1+ d0.d2* d0.d2+d0.d3* d0.d3;
+    }
+    public double distance(point p0){
+      return Math.sqrt(distanceSquared(p0));
+    }
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj instanceof point other)
+                return this.xyz.equals(other.xyz);
+            return false;
+        }
 }
