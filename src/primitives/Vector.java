@@ -2,15 +2,37 @@
 import java.awt.*;
 import java.util.Collection;
 
+ /** The Vector class represents a mathematical vector in three-dimensional space.
+         * It extends the Point class and inherits its x, y, and z coordinates.
+         * A Vector can be created using its x, y, and z components or by passing a Double3 object.
+         * A Vector cannot be created with all components equal to zero.
+         * This class provides methods for vector addition, scaling, dot product, cross product,
+         * and normalization.
+         *
+         */
+
 public class Vector extends point {
 
-     public Vector(int x, int y, int z) {
+     /**
+      *Constructs a Vector with the specified x, y, and z components.
+      *@param x the x component of the vector
+      *@param y the y component of the vector
+      *@param z the z component of the vector
+      *@throws IllegalArgumentException if all components are equal to zero
+      */
+
+     public Vector(double x, double y, double z)  {
         super(x, y, z);
-        if(super.xyz.equals(Double3.ZERO))
+        if(xyz.equals(Double3.ZERO))
         {
             throw new IllegalArgumentException("Vector zero is illegal\n");
         }
     }
+     /**
+      *Constructs a Vector from a Double3 object.
+      *@param xyz a Double3 object representing the x, y, and z components of the vector
+      *@throws IllegalArgumentException if the Double3 object has all components equal to zero
+      */
 
      Vector(Double3 xyz)
      {
@@ -23,44 +45,78 @@ public class Vector extends point {
          }
     }
 
-   public Vector add(Vector v0) {
-       return new Vector(super.xyz.add(((point)v0).xyz));
-    }
-    public Vector scale(double rhs){
-       return new Vector(super.xyz.scale(rhs));
 
+     /**
+      *Returns a new Vector representing the vector addition of this vector and the specified vector.
+      *@param v0 the vector to add to this vector
+      *@return the sum of this vector and the specified vector
+      */
+
+   public Vector add(Vector v0) {
+       return new Vector(xyz.add(v0.xyz));
     }
-    public double dotProduct(Vector v0)
+
+
+     /**
+      *Returns a new Vector representing the scaling of this vector by the specified scalar.
+      *@param rhs the scalar to multiply this vector by
+      *@return the product of this vector and the scalar
+      */
+
+     public Vector scale(double rhs)
+     {
+       return new Vector(xyz.scale(rhs));
+    }
+
+
+     /**
+      *Returns the dot product of this vector and the specified vector.
+      *@param v0 the vector to dot product with this vector
+      *@return the dot product of this vector and the specified vector
+      */
+     public double dotProduct(Vector v0)
     {
-        return super.xyz.d1*((point)v0).xyz.d1 +super.xyz.d2*((point)v0).xyz.d2 + super.xyz.d3*((point)v0).xyz.d3;
+        return xyz.d1*v0.xyz.d1 +xyz.d2*v0.xyz.d2 + xyz.d3*v0.xyz.d3;
     }
-    public Vector crossProduct(Vector v0){
-        double u1 = xyz.d1;
-        double u2 =  xyz.d2;
-        double u3 =  xyz.d3;
-        double v1 = v0. xyz.d1;
-        double v2 = v0. xyz.d2;
-        double v3 = v0. xyz.d3;
-      return new Vector(new Double3( u2 * v3 - u3 * v2, u3 * v1 - u1 * v3, u1 * v2 - u2 * v1));
+     /**
+      *Returns a new Vector representing the cross product of this vector and the specified vector.
+      *@param v0 the vector to cross product with this vector
+      *@return the cross product of this vector and the specified vector
+      */
+     public Vector crossProduct(Vector v0){
+      return new Vector(new Double3( xyz.d2 * v0. xyz.d3 - xyz.d3 * v0. xyz.d2, xyz.d3 * v0. xyz.d1 - xyz.d1 * v0. xyz.d3, xyz.d1 * v0. xyz.d2 - xyz.d2 * v0. xyz.d1));
     }
-    public double lengthSquared()
+     /**
+      *Returns the square of the length of this vector.
+      *@return the square of the length of this vector
+      */
+     public double lengthSquared()
     {
         return dotProduct(this);
     }
-public double length()
+     /**
+      *Returns the length of this vector.
+      *@return the length of this vector
+      */
+     public double length()
 {
     return Math.sqrt(lengthSquared());
 }
-public Vector normalize()
-{
-    double len= this.length();
-    return new Vector(super.xyz.reduce(len));
-}
+     /**
+      *Returns a new Vector representing the normalization of this vector.
+      *@return the normalization of this vector
+      */
+     public Vector normalize()
+    {
+    return new Vector(super.xyz.reduce(this.length()));
+     }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj instanceof Vector other)
-            return super.equals((point)other);
+            return super.equals(other);
         return false;
     }
+     @Override
+     public String toString(){return super.toString();}
 }
