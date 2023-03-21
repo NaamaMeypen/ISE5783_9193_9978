@@ -6,13 +6,12 @@ import primitives.Vector.*;
 
 public class point {
     final Double3 xyz;
-    public point(int x, int y, int z) {
+    public point( double x,double y, double z)  {
         xyz = new Double3(x,y,z);
     }
     point(Double3 xyz) {
-        this.xyz = xyz;
+        this.xyz = new Double3(xyz.d1, xyz.d2, xyz.d3);
     }
-    //  return new Vector((p0.xyz).subtract(xyz));
 
     public Vector subtract(point p0) {
        return new Vector(xyz.subtract(p0.xyz));
@@ -20,12 +19,12 @@ public class point {
 
    public point add(Vector v0)
     {
-        return  new point((((point)v0).xyz).add(xyz));
+        return new point(xyz.add(v0.xyz));
     }
     public double distanceSquared(point p0)
     {
-        Double3 d0=xyz.subtract(p0.xyz);
-        return d0.d1* d0.d1+ d0.d2* d0.d2+d0.d3* d0.d3;
+
+        return xyz.subtract(p0.xyz).d1* xyz.subtract(p0.xyz).d1+ xyz.subtract(p0.xyz).d2* xyz.subtract(p0.xyz).d2+xyz.subtract(p0.xyz).d3* xyz.subtract(p0.xyz).d3;
     }
     public double distance(point p0){
       return Math.sqrt(distanceSquared(p0));
@@ -37,4 +36,8 @@ public class point {
                 return this.xyz.equals(other.xyz);
             return false;
         }
-}
+    @Override
+    public String toString() { return "Point:" + xyz; }
+     }
+
+
