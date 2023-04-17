@@ -54,7 +54,8 @@ public class point {
     public double distanceSquared(point p0)
     {
 
-        return xyz.subtract(p0.xyz).d1* xyz.subtract(p0.xyz).d1+ xyz.subtract(p0.xyz).d2* xyz.subtract(p0.xyz).d2+xyz.subtract(p0.xyz).d3* xyz.subtract(p0.xyz).d3;
+        return xyz.subtract(p0.xyz).d1* xyz.subtract(p0.xyz).d1+ xyz.subtract(p0.xyz).d2* xyz.subtract(p0.xyz)
+                .d2+xyz.subtract(p0.xyz).d3* xyz.subtract(p0.xyz).d3;
     }
 
     /**
@@ -71,7 +72,7 @@ public class point {
         public boolean equals(Object obj) {
             if (this == obj) return true;
             if (obj instanceof point other)
-                return this.xyz.equals(other.xyz);
+                return xyz.equals(other.xyz);
             return false;
         }
     @Override

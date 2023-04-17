@@ -92,7 +92,7 @@ public class Vector extends point {
       */
      public double lengthSquared()
     {
-        return dotProduct(this);
+        return xyz.d1 * xyz.d1 + xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3;
     }
      /**
       *Returns the length of this vector.
@@ -108,15 +108,16 @@ public class Vector extends point {
       */
      public Vector normalize()
     {
-    return new Vector(super.xyz.reduce(this.length()));
+        //TODO: need to check what is better: 1. 3 primitives 2. Double3
+    return new Vector(xyz.reduce(length()));
      }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj instanceof Vector other)
-            return super.equals(other);
-        return false;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) return true;
+//        if (obj instanceof Vector other)
+//            return super.equals(other);
+//        return false;
+//    }
      @Override
-     public String toString(){return super.toString();}
+     public String toString(){return toString();}
 }

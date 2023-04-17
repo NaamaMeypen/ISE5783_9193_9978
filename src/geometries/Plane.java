@@ -28,7 +28,22 @@ public class Plane implements Geometry{
      */
     public Plane(point p1, point p2,point p3)
     {
-        normal=null;
+        if(p1.equals(p2))
+        {
+            throw new IllegalArgumentException("It is illegal to Construct a plan with first and second points are " +
+                    "converge\n");
+        }
+        Vector v1=p2.subtract(p1);
+        Vector v2 = p3.subtract(p1);
+        try{
+         v1.crossProduct(v2);
+        }
+        catch (IllegalArgumentException e)
+        {
+
+            throw new IllegalArgumentException("It is illegal to construct a plan with three points that are on the same line\n");
+        }
+        normal=v1.crossProduct(v2).normalize();
         q0=p1;
     }
 

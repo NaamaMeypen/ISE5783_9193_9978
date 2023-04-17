@@ -3,6 +3,8 @@ package geometries;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.point;
+import static primitives.Util.isZero;
+
 /**
  The Tube class is a subclass of RadialGeometry and represents a tube shape in space.
  */
@@ -28,8 +30,16 @@ public class Tube extends RadialGeometry{
         return ray;
     }
     @Override
-    public Vector getNormal(point p0) {
-        return null;
+    public Vector getNormal(point p) {
+        //p.subtract(ray.getP0()).dotProduct(ray.getDir()))
+        double t = (ray.getDir()).dotProduct(p.subtract(ray.getP0()));
+        if(isZero(t))
+        {
+            return p.subtract(ray.getP0()).normalize();
+            // throw new IllegalArgumentException("it is illegal when  extreme case when p-p0 is orthogonal to v \n");
+        }
+        point O =(ray.getP0()).add((ray.getDir()).scale(t));
+        return p.subtract(O).normalize();
     }
     @Override
     public String toString(){

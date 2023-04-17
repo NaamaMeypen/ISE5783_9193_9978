@@ -6,7 +6,7 @@ public class Sphere extends RadialGeometry{
 final private point center;
     /**
      Constructs a new Sphere object with the specified radius and center point.
-     @param radius the radius of this Sphere object.
+     @param radius the radius of this Sphere objec/t.
      @param center the center point of this Sphere object.
      */
     public Sphere(double radius,point center) {
@@ -21,7 +21,11 @@ final private point center;
     }
     @Override
     public Vector getNormal(point p0) {
-        return null;
+        if(p0.distance(center)!=radius)
+        {
+            throw new IllegalArgumentException(" The point have to be on the sphere\n");
+        }
+        return p0.subtract(center).normalize();
     }
     @Override
     public String toString(){return super.toString()+center.toString();}
