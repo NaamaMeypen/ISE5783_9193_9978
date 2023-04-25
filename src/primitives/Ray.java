@@ -3,7 +3,7 @@ package primitives;
  * Represents a ray in 3D space, defined by a starting point and a direction vector.
  */
 public class Ray {
-   final private point p0;
+   final private Point p0;
     final private Vector dir;
     /**
      * Constructs a new ray with the given starting point and direction vector.
@@ -12,7 +12,7 @@ public class Ray {
      * @param p0 the starting point of the ray
      * @param dir the direction vector of the ray
      */
-    public Ray(point p0, Vector dir) {
+    public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         if(dir.lengthSquared()==1)
         {
@@ -32,12 +32,16 @@ public class Ray {
     @Override
     public String toString() { return p0.toString()+' '+ dir.toString(); }
 
-    public point getP0() {
+    public Point getP0() {
         return p0;
     }
 /** Returns the direction of this Ray*/
     public Vector getDir() {
         return dir;
+    }
+    public Point getPoint(double t)
+    {
+        return p0.add(dir.scale(t));
     }
 }
 

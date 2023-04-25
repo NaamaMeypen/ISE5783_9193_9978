@@ -1,10 +1,12 @@
 package geometries;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 import java.util.List;
 
-import primitives.point;
+import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 /** Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
@@ -12,7 +14,7 @@ import primitives.Vector;
  * @author Dan */
 public class Polygon implements Geometry {
    /** List of polygon's vertices */
-   protected final List<point> vertices;
+   protected final List<Point> vertices;
    /** Associated plane in which the polygon lays */
    protected final Plane       plane;
    private final int           size;
@@ -37,7 +39,7 @@ public class Polygon implements Geometry {
     *                                  <li>The polygon is concave (not convex)</li>
     *                                  </ul>
     */
-   public Polygon(point... vertices) {
+   public Polygon(Point... vertices) {
       if (vertices.length < 3)
          throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
       this.vertices = List.of(vertices);
@@ -78,5 +80,63 @@ public class Polygon implements Geometry {
    }
 
    @Override
-   public Vector getNormal(point point) { return plane.getNormal(); }
-}
+   public Vector getNormal(Point point) { return plane.getNormal(); }
+
+   @Override
+   public List<Point> findIntersections(Ray ray) {
+//         //If there's intersection with the plane so we have to substitute the ray equation into the plane equation
+//         // (replacing P) to get: (P0 + tV) . N + d = 0 and find the value of t:
+//         //
+//         //t = -(P0 . N + d) / (V . N)
+//         //
+//         //then you substitute that value of t back into your ray equation to get the value of P:
+//         //
+//         //R0 + tV = P.
+//         //
+//         //Finally, you want to go around each adjacent pair of points in the polygon checking that P is inside
+//         // the polygon, which is done by checking that P is to the same side of each line made by the points.
+//
+//         List<Point> result = plane.findIntersections(ray);
+//         //First ,we check if the plane of our polygon intersects with the ray ,if there's no intersection with the
+//         //plane so there's no intersection with the polygon.
+//         if (result == null) {
+//            return result;
+//         }
+//
+//         Point P0 = ray.getP0();
+//         Vector v = ray.getDir();
+//
+//         Point P1 = vertices.get(1);
+//         Point P2 = vertices.get(0);
+//
+//         Vector v1 = P1.subtract(P0);
+//         Vector v2 = P2.subtract(P0);
+//
+//         double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+//
+//         if (isZero(sign)) {
+//            return null;
+//         }
+//
+//         boolean positive = sign > 0;
+//
+//         //iterate through all vertices of the polygon
+//         for (int i = vertices.size() - 1; i > 0; --i) {
+//            v1 = v2;
+//            v2 = vertices.get(i).subtract(P0);
+//
+//            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+//            if (isZero(sign)) {
+//               return null;
+//            }
+//
+//            if (positive != (sign > 0)) {
+//               return null;
+//            }
+//         }
+//         return List.of(result.get(0));
+//      }
+      return null;
+   }
+   }
+

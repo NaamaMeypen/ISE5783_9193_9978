@@ -1,7 +1,9 @@
 package geometries;
 import primitives.Ray;
 import primitives.Vector;
-import primitives.point;
+import primitives.Point;
+
+import java.util.List;
 
 /**
  The Cylinder class represents a cylinder object, which is a type of Tube with a fixed height.
@@ -26,7 +28,7 @@ public class Cylinder extends Tube{
     public double getHeight() {
         return height;
     }
-    public Vector getNormal(point p0) {
+    public Vector getNormal(Point p0) {
         Vector v = p0.subtract(ray.getP0()); // vector from the center of the cylinder to p0
         double t = ray.getDir().dotProduct(v); // the parameter t where the normal intersects the axis
         if (t == height) { // if p0 is on one of the bases, return the direction vector of the base
@@ -41,11 +43,12 @@ public class Cylinder extends Tube{
             else//p0 is orthogonal to the axis ray
                 return v;
         }
-        // point O =(ray.getP0()).add((ray.getDir()).scale(t)); // the point on the axis where the normal intersects
-      //  Vector n = p0.subtract(O); // the vector from the point on the axis to p0
-      //  return n.normalize(); // normalize the vector to obtain the normal vector
         return super.getNormal(p0);
     }
     @Override
     public String toString(){return super.toString() + ' ' +  height;}
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
+    }
 }

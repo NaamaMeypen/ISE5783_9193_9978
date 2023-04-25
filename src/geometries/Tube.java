@@ -2,7 +2,10 @@ package geometries;
 
 import primitives.Ray;
 import primitives.Vector;
-import primitives.point;
+import primitives.Point;
+
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -30,7 +33,7 @@ public class Tube extends RadialGeometry{
         return ray;
     }
     @Override
-    public Vector getNormal(point p) {
+    public Vector getNormal(Point p) {
         //p.subtract(ray.getP0()).dotProduct(ray.getDir()))
         double t = (ray.getDir()).dotProduct(p.subtract(ray.getP0()));
         if(isZero(t))
@@ -38,11 +41,16 @@ public class Tube extends RadialGeometry{
             return p.subtract(ray.getP0()).normalize();
             // throw new IllegalArgumentException("it is illegal when  extreme case when p-p0 is orthogonal to v \n");
         }
-        point O =(ray.getP0()).add((ray.getDir()).scale(t));
+        Point O =(ray.getP0()).add((ray.getDir()).scale(t));
         return p.subtract(O).normalize();
     }
     @Override
     public String toString(){
     return super.toString()+ray.toString();
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

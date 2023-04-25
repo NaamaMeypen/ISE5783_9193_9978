@@ -1,13 +1,20 @@
 package geometries;
+import primitives.Ray;
 import primitives.Vector;
-import primitives.point;
+import primitives.Point;
+
+import java.util.List;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  The Plane class represents a plane object in three-dimensional space.
  It implements the Geometry interface and provides methods for calculating the plane's normal vector.
  */
 public class Plane implements Geometry{
 
-  final private   point q0;
+  final private Point q0;
   final private   Vector normal;
 
     /**
@@ -15,7 +22,7 @@ public class Plane implements Geometry{
      @param q0 the point on the plane
      @param normal the normal vector of the plane
      */
-    public Plane(point q0, Vector normal) {
+    public Plane(Point q0, Vector normal) {
         this.q0 = q0;
         this.normal = normal.normalize();
     }
@@ -26,7 +33,7 @@ public class Plane implements Geometry{
      @param p2 the second point on the plane
      @param p3 the third point on the plane
      */
-    public Plane(point p1, point p2,point p3)
+    public Plane(Point p1, Point p2, Point p3)
     {
         if(p1.equals(p2))
         {
@@ -48,7 +55,7 @@ public class Plane implements Geometry{
     }
 
     @Override
-    public Vector getNormal(point p0) {
+    public Vector getNormal(Point p0) {
         return normal;
     }
   /**  Returns the normal vector of this object.
@@ -64,8 +71,31 @@ public class Plane implements Geometry{
      Returns the point on the plane.
      @return the point on the plane
      */
-    public point getPoint() {
+    public Point getPoint() {
         return q0;
     }
 
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+        Vector n = normal;
+        if (q0.equals(p0))
+            return null;
+        double nv = alignZero(n.dotProduct(v));
+        if (isZero(nv))
+            return null;
+
+        Vector P0_Q0 = q0.subtract(p0); // Q - P0
+        double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
+
+        if (isZero(nP0Q0))
+            return null;
+
+        double t = alignZero(nP0Q0 / nv);
+        // t should be bigger than 0
+        if (t<=0)
+            return null;
+        return List.of(ray.getPoint(t));
+    }
 }

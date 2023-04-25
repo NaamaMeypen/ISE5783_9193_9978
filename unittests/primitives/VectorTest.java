@@ -105,7 +105,11 @@ class VectorTest {
     @Test
     void testLength() {
         // TC01: Simple test
-        assertEquals( 5d, new Vector(0, 3, 4).length(), 0.00001,"length() wrong value");
+        assertEquals(
+                5d,
+                new Vector(0, 3, 4).length(),
+                0.00001,
+                "length() wrong value");
 
     }
 
