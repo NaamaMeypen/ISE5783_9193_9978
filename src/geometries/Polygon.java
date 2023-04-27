@@ -84,59 +84,57 @@ public class Polygon implements Geometry {
 
    @Override
    public List<Point> findIntersections(Ray ray) {
-//         //If there's intersection with the plane so we have to substitute the ray equation into the plane equation
-//         // (replacing P) to get: (P0 + tV) . N + d = 0 and find the value of t:
-//         //
-//         //t = -(P0 . N + d) / (V . N)
-//         //
-//         //then you substitute that value of t back into your ray equation to get the value of P:
-//         //
-//         //R0 + tV = P.
-//         //
-//         //Finally, you want to go around each adjacent pair of points in the polygon checking that P is inside
-//         // the polygon, which is done by checking that P is to the same side of each line made by the points.
-//
-//         List<Point> result = plane.findIntersections(ray);
-//         //First ,we check if the plane of our polygon intersects with the ray ,if there's no intersection with the
-//         //plane so there's no intersection with the polygon.
-//         if (result == null) {
-//            return result;
-//         }
-//
-//         Point P0 = ray.getP0();
-//         Vector v = ray.getDir();
-//
-//         Point P1 = vertices.get(1);
-//         Point P2 = vertices.get(0);
-//
-//         Vector v1 = P1.subtract(P0);
-//         Vector v2 = P2.subtract(P0);
-//
-//         double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-//
-//         if (isZero(sign)) {
-//            return null;
-//         }
-//
-//         boolean positive = sign > 0;
-//
-//         //iterate through all vertices of the polygon
-//         for (int i = vertices.size() - 1; i > 0; --i) {
-//            v1 = v2;
-//            v2 = vertices.get(i).subtract(P0);
-//
-//            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-//            if (isZero(sign)) {
-//               return null;
-//            }
-//
-//            if (positive != (sign > 0)) {
-//               return null;
-//            }
-//         }
-//         return List.of(result.get(0));
-//      }
-      return null;
-   }
+         //If there's intersection with the plane so we have to substitute the ray equation into the plane equation
+         // (replacing P) to get: (P0 + tV) . N + d = 0 and find the value of t:
+         //
+         //t = -(P0 . N + d) / (V . N)
+         //
+         //then you substitute that value of t back into your ray equation to get the value of P:
+         //
+         //R0 + tV = P.
+         //
+         //Finally, you want to go around each adjacent pair of points in the polygon checking that P is inside
+         // the polygon, which is done by checking that P is to the same side of each line made by the points.
+         List<Point> res ;
+         res= plane.findIntersections(ray);
+         //First ,we check if the plane of our polygon intersects with the ray ,if there's no intersection with the
+         //plane so there's no intersection with the polygon.
+         if (res == null) {
+            return res;
+         }
+
+         Point P0 = ray.getP0();
+         Vector v = ray.getDir();
+
+         Point P1 = vertices.get(1);
+         Point P2 = vertices.get(0);
+
+         Vector v1 = P1.subtract(P0);
+         Vector v2 = P2.subtract(P0);
+
+         double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+
+         if (isZero(sign)) {
+            return null;
+         }
+
+         boolean positive = sign > 0;
+
+         //iterate through all vertices of the polygon
+         for (int i = vertices.size() - 1; i > 0; --i) {
+            v1 = v2;
+            v2 = vertices.get(i).subtract(P0);
+
+            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+            if (isZero(sign)) {
+               return null;
+            }
+
+            if (positive != (sign > 0)) {
+               return null;
+            }
+         }
+         return List.of(res.get(0));
+      }
    }
 
