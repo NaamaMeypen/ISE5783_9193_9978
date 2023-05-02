@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CylinderTest {
@@ -33,5 +35,6 @@ class CylinderTest {
     /** Test method for {@link Cylinder#findIntersections} */
     @Test
     void testFindIntersections() {
+
     }
 }
