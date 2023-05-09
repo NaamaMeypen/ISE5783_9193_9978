@@ -72,8 +72,10 @@ public class Point {
             return false;
         }
     @Override
-    public String toString() { return xyz.toString(); }
-
+    public String toString() {
+        return "Point:" + xyz ;
+    }
+//xyz.toString()
     public double getX() {
         return xyz.d1;
     }

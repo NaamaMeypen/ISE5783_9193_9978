@@ -122,8 +122,7 @@ public class Vector extends Point {
             return super.equals(other);
         return false;
     }
-    @Override
-    public String toString() {
-        return toString();
-    }
+  /*  public String toString() {
+        return "Vector: "+xyz;
+    }*/
 }

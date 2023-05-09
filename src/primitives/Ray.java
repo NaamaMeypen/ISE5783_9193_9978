@@ -30,8 +30,13 @@ public class Ray {
         return false;
     }
     @Override
-    public String toString() { return p0.toString()+' '+ dir.toString(); }
-
+    public String toString()
+    {
+        return "Ray: " +
+                "p0="+p0+
+            ", dir="+dir.xyz;
+    }
+// p0.toString()+' '+ dir.toString()
     public Point getP0() {
         return p0;
     }
