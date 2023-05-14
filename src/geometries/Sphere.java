@@ -49,12 +49,12 @@ final private Point center;
             return null;
         double th =alignZero( Math.sqrt(radius * radius - d * d));
         if (tm - th > 0 && tm + th > 0)
-            return List.of(ray.getP0().add(ray.getDir().scale(tm - th))
-                    , ray.getP0().add(ray.getDir().scale(tm + th)));
+            return List.of(ray.getPoint(tm - th)
+                    , ray.getPoint(tm + th));
         if (tm - th > 0 && !(tm + th > 0))
-            return List.of(ray.getP0().add(ray.getDir().scale(tm - th)));
+            return List.of(ray.getPoint(tm - th));
         if (!(tm - th > 0) && tm + th > 0)
-            return List.of(ray.getP0().add(ray.getDir().scale(tm + th)));
+            return List.of(ray.getPoint(tm + th));
         return null;
 
     }
