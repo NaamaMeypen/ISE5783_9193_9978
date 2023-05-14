@@ -6,6 +6,7 @@ package primitives;
 
 public class Point {
     final Double3 xyz;
+    public final static Point ZERO=new Point(0,0,0);
     /**
      * Constructs a point with the specified x, y, and z coordinates.
      * @param x the x-coordinate of the point

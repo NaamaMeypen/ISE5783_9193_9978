@@ -43,11 +43,11 @@ public class CameraIntegrationTest {
     @Test
   public void cameraRaySphereIntegration()
     {
-        Camera cam1 = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0));
-        Camera cam2 = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, -1, 0));
+        Camera cam1 = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(1).setVPSize(3,3);
+        Camera cam2 = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(1).setVPSize(3,3);;
 
         // TC01: Small Sphere 2 points
-        assertCountIntersections(1,cam1, new Sphere(1, new Point(0, 0, -3)),3,3 );
+        assertCountIntersections(2,cam1, new Sphere(1, new Point(0, 0, -3)),3,3 );
 
         // TC02: Big Sphere 18 points
         assertCountIntersections(18,cam2, new Sphere(2.5, new Point(0, 0, -2.5)),3,3);
@@ -67,7 +67,7 @@ public class CameraIntegrationTest {
    @Test
    public void cameraRayPlaneIntegration()
    {
-        Camera cam = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0));
+        Camera cam = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(1).setVPSize(3,3);
 
         // TC01: Plane against camera 9 points
         assertCountIntersections(9,cam, new Plane(new Point(0, 0, -5), new Vector(0, 0, 1)), 3,3);
@@ -87,7 +87,7 @@ public class CameraIntegrationTest {
     @Test
     public void cameraRayTriangleIntegration()
     {
-        Camera cam = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0));
+        Camera cam = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(1).setVPSize(3,3);
         // TC01: Small triangle 1 point
 
         assertCountIntersections(1,cam, new Triangle(new Point(1, 1, -2), new Point(-1, 1, -2), new Point(0, -1, -2)), 3,3);
