@@ -12,7 +12,7 @@ import static primitives.Util.isZero;
  The Plane class represents a plane object in three-dimensional space.
  It implements the Geometry interface and provides methods for calculating the plane's normal vector.
  */
-public class Plane implements Geometry{
+public class Plane extends Geometry{
 
   final private Point q0;
   final private   Vector normal;
@@ -76,7 +76,7 @@ public class Plane implements Geometry{
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
         Vector n = normal;
@@ -96,6 +96,6 @@ public class Plane implements Geometry{
         // t should be bigger than 0
         if (t<=0)
             return null;
-        return List.of(ray.getPoint(t));
+        return List.of(new GeoPoint(this, ray.getPoint(t)));
     }
 }

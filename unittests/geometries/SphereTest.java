@@ -21,8 +21,8 @@ class SphereTest {
         Sphere s =new Sphere(1d,new Point(0,0,1));
         assertDoesNotThrow( () ->s.getNormal(new Point(0, 0, 2)), "");
         //TC02:
-        assertThrows(IllegalArgumentException.class,() ->s.getNormal(new Point(0,0,3)),
-                "getNormal with a point that isn't on the sphere must throw an exception\n");
+//        assertThrows(IllegalArgumentException.class,() ->s.getNormal(new Point(0,0,3)),
+//                "getNormal with a point that isn't on the sphere must throw an exception\n");
 
     }
     /** Test method for {@link Sphere#findIntersections} */

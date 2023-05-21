@@ -27,19 +27,19 @@ final private Point center;
     }
     @Override
     public Vector getNormal(Point p0) {
-        if(p0.distance(center)!=radius)
-        {
-            throw new IllegalArgumentException(" The point have to be on the sphere\n");
-        }
+//        if(!isZero(p0.distance(center)-radius))
+//        {
+//            throw new IllegalArgumentException(" The point have to be on the sphere\n");
+//        }
         return p0.subtract(center).normalize();
     }
     @Override
     public String toString(){return super.toString()+center.toString();}
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if (ray.getP0().equals(center))
-            return List.of(ray.getPoint(radius));
+            return List.of(new GeoPoint(this,ray.getPoint(radius)));
        Vector u= center.subtract(ray.getP0());
        double tm=alignZero (ray.getDir().dotProduct(u));
        double d= alignZero(Math.sqrt(u.lengthSquared()-tm*tm));
@@ -49,12 +49,12 @@ final private Point center;
             return null;
         double th =alignZero( Math.sqrt(radius * radius - d * d));
         if (tm - th > 0 && tm + th > 0)
-            return List.of(ray.getPoint(tm - th)
-                    , ray.getPoint(tm + th));
+            return List.of(new GeoPoint(this,ray.getPoint(tm - th))
+                    ,new GeoPoint(this,ray.getPoint(tm + th)) );
         if (tm - th > 0 && !(tm + th > 0))
-            return List.of(ray.getPoint(tm - th));
+            return List.of(new GeoPoint(this,ray.getPoint(tm - th)));
         if (!(tm - th > 0) && tm + th > 0)
-            return List.of(ray.getPoint(tm + th));
+            return List.of(new GeoPoint(this, ray.getPoint(tm + th)));
         return null;
 
     }

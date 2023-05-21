@@ -12,7 +12,7 @@ import primitives.Vector;
 /** Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
  * system
  * @author Dan */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
    /** List of polygon's vertices */
    protected final List<Point> vertices;
    /** Associated plane in which the polygon lays */
@@ -83,7 +83,7 @@ public class Polygon implements Geometry {
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
    @Override
-   public List<Point> findIntersections(Ray ray) {
+   public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
          //If there's intersection with the plane so we have to substitute the ray equation into the plane equation
          // (replacing P) to get: (P0 + tV) . N + d = 0 and find the value of t:
          //
@@ -95,8 +95,7 @@ public class Polygon implements Geometry {
          //
          //Finally, you want to go around each adjacent pair of points in the polygon checking that P is inside
          // the polygon, which is done by checking that P is to the same side of each line made by the points.
-         List<Point> res ;
-         res= plane.findIntersections(ray);
+         List<GeoPoint> res =plane.findGeoIntersections(ray);
          //First ,we check if the plane of our polygon intersects with the ray ,if there's no intersection with the
          //plane so there's no intersection with the polygon.
          if (res == null) {
@@ -134,7 +133,7 @@ public class Polygon implements Geometry {
                return null;
             }
          }
-         return List.of(res.get(0));
+         return List.of(new GeoPoint(this, res.get(0).point));
       }
    }
 

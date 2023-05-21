@@ -40,7 +40,7 @@ public class Camera {
      */
     private double height;
     private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
+    private RayTracerBase rayTracer;
     public Camera(Point p0,Vector vTo,Vector vUp)
     {
         if(!isZero(vTo.dotProduct(vUp)))
@@ -82,7 +82,7 @@ public class Camera {
         return width;
     }
 
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i)
+    public Ray constructRay(int nX, int nY, double j, double i)
     {
         //Image center
        Point Pc= p0.add(vTo.scale(distance));
@@ -107,11 +107,11 @@ public class Camera {
         return this;
     }
 
-    public Camera setRayTracerBase(RayTracerBase rayTracerBase) {
-        this.rayTracerBase = rayTracerBase;
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
         return this;
     }
-    void renderImage()
+    public void renderImage()
     {
         try {
             if (imageWriter == null) {
@@ -120,7 +120,7 @@ public class Camera {
             if (this == null) {
                 throw new MissingResourceException("missing resource", Camera.class.getName(), "");
             }
-            if (rayTracerBase == null) {
+            if (rayTracer == null) {
                 throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
             }
             //rendering the image
@@ -128,7 +128,8 @@ public class Camera {
             int nY = imageWriter.getNy();
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
-                    imageWriter.writePixel(j, i, castRay(nX, nY, j, i));
+                    Color color = castRay(nX, nY, j, i);
+                    imageWriter.writePixel(j, i, color);
                 }
             }
         } catch (MissingResourceException e) {
@@ -140,8 +141,10 @@ public class Camera {
         if (imageWriter == null) {
             throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
         }
-        for (int i = 0; i < imageWriter.getNx(); i++)
-            for (int j = 0; j < imageWriter.getNy(); j++)
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+        for (int i = 0; i < nX; i++)
+            for (int j = 0; j < nY; j++)
                 if (i % interval == 0 || j % interval == 0)
                     imageWriter.writePixel(j, i, color);
         imageWriter.writeToImage();
@@ -151,34 +154,10 @@ public class Camera {
             throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
         imageWriter.writeToImage();
     }
-    private Color castRay(int nX, int nY, double j, double i) {
-
-        //Pc = P0 + d * vTo
-        Point pc = p0.add(vTo.scale(distance));
-        Point pIJ = pc;
-
-        //Ry = height / nY : height of a pixel
-        double rY = alignZero(height / nY);
-        //Ry = weight / nX : width of a pixel
-        double rX = alignZero(width / nX);
-        //xJ is the value of width we need to move from center to get to the point
-        double xJ = alignZero((j - ((nX - 1) / 2d)) * rX);
-        //yI is the value of height we need to move from center to get to the point
-        double yI = alignZero(-(i - ((nY - 1) / 2d)) * rY);
-
-        if (xJ != 0) {
-            pIJ = pIJ.add(vRight.scale(xJ)); // move to the point
-        }
-        if (yI != 0) {
-            pIJ = pIJ.add(vUp.scale(yI)); // move to the point
-        }
-
-        //get vector from camera p0 to the point
-        Vector vIJ = pIJ.subtract(p0);
-
-        //return ray to the center of the pixel
-        Ray myRay = new Ray(p0, vIJ);
-        return rayTracerBase.traceRay(myRay);
+    private Color castRay(int nX, int nY, double j, double i)
+    {
+        Ray ray=constructRay(nX,nY,j,i);
+        return rayTracer.traceRay(ray);
     }
 }
 

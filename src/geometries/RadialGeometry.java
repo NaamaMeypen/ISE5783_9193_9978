@@ -2,7 +2,8 @@ package geometries;
 /**
  The abstract class RadialGeometry is a subclass of Geometry and serves as a blueprint for geometric objects with a radial shape.
  */
-public abstract class RadialGeometry implements Geometry{
+public abstract class RadialGeometry extends Geometry
+{
     /**
      The radius of this RadialGeometry object.
      */

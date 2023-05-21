@@ -39,13 +39,15 @@ public class Triangle extends Polygon{
         return (num1>0&&num2>0&&num3>0)||(num1<0&&num2<0&&num3<0);
     }
     @Override
-    public List<Point> findIntersections(Ray ray)
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
     {
         if(isInside(ray)) // check if there is an intersection point inside the triangle
         {
-            List<Point> Points =new LinkedList<>();
-            if(plane.findIntersections(ray) != null)
-                    Points.add(plane.findIntersections(ray).get(0));
+            //List<GeoPoint> Points =new LinkedList<>();
+           // if(plane.findGeoIntersections(ray) != null)
+            //Points.add(new GeoPoint(this,plane.findGeoIntersectionsHelper(ray).get(0).point));
+            List<GeoPoint> Points=plane.findGeoIntersectionsHelper(ray);
+            Points.get(0).geometry=this;
             return  Points;
         }
         return null; // there isn't an intersection point inside the triangle

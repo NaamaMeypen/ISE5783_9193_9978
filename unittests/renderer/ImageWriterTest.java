@@ -23,7 +23,13 @@ class ImageWriterTest {
                 if (i % 50 == 0 || j % 50 == 0)
                     imageWriter.writePixel(i, j, redColor);
                 else
-                    imageWriter.writePixel(i, j, yellowColor);
+                     imageWriter.writePixel(i, j, yellowColor);
+//        for (int i = 0; i < nX; i++)
+//            for (int j = 0; j < nY; j+=50)
+//                //if (i % 50 == 0 || j % 50 == 0)
+//                imageWriter.writePixel(i, j, redColor);
+                //else
+        //              imageWriter.writePixel(i, j, yellowColor);
         imageWriter.writeToImage();
     }
 }

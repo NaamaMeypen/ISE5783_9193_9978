@@ -55,7 +55,7 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         //The overall idea is to form a quadratic equation that it's
         //solutions are the scale factor for the getPoint method.
         //We form this quadratic equation by setting two restriction on an arbitrary point:
@@ -80,7 +80,7 @@ public class Tube extends RadialGeometry {
         double a = alignZero(vec1.lengthSquared());
 
         if (ray.getP0().equals(this.ray.getP0())) {
-            return  List.of(ray.getPoint(Math.sqrt(radiusSquared / a)));
+            return  List.of(new GeoPoint(this, ray.getPoint(Math.sqrt(radiusSquared / a))));
         }
 
         //The vector between the ray heads.
@@ -88,7 +88,7 @@ public class Tube extends RadialGeometry {
 
         //If the ray starts at the tube axis ray
         if (tubeDir.equals(deltaP.normalize()) || tubeDir.equals(deltaP.normalize().scale(-1))) {
-            return  List.of(ray.getPoint(Math.sqrt(radiusSquared / a)));
+            return  List.of(new GeoPoint(this, ray.getPoint(Math.sqrt(radiusSquared / a))));
         }
 
         double dotP2 = alignZero(deltaP.dotProduct(tubeDir));
@@ -117,16 +117,16 @@ public class Tube extends RadialGeometry {
             Point p2 = ray.getPoint(t2);
             double distance2 = ray.getP0().distance(p2);
             //* if (distance1 <= maxDistance && distance2 <= maxDistance){*//*
-            return List.of(p1, p2);
+            return List.of(new GeoPoint(this,p1),new GeoPoint(this, p2));
         } else if (t1 > 0) {
             Point p1 = ray.getPoint(t1);
             double distance1 = ray.getP0().distance(p1);
             // if (distance1 <= maxDistance)
-            return List.of(p1);
+            return List.of(new GeoPoint(this, p1));
         } else if (t2 > 0) {
             Point p2 = ray.getPoint(t2);
             double distance2 = ray.getP0().distance(p2);
-            return List.of(p2);
+            return List.of(new GeoPoint(this,p2));
         }
         return null;
     }

@@ -25,7 +25,7 @@ public class CameraIntegrationTest {
         List<Point> allpoints = null;
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                var intersections = geo.findIntersections(cam.constructRayThroughPixel(Nx, Ny, j, i));
+                var intersections = geo.findIntersections(cam.constructRay(Nx, Ny, j, i));
                 if (intersections != null) {
                     if (allpoints == null) {
                         allpoints = new LinkedList<>();
