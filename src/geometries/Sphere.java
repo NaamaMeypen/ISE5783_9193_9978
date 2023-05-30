@@ -37,7 +37,7 @@ final private Point center;
     public String toString(){return super.toString()+center.toString();}
 
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if (ray.getP0().equals(center))
             return List.of(new GeoPoint(this,ray.getPoint(radius)));
        Vector u= center.subtract(ray.getP0());

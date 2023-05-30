@@ -20,12 +20,12 @@ public class PointLight extends Light implements LightSource{
         this.position = position;
     }
 
-    public PointLight setkL(double kL) {
+    public PointLight setKl(double kL) {
         this.kL = kL;
         return this;
     }
 
-    public PointLight setkQ(double kQ) {
+    public PointLight setKq(double kQ) {
         this.kQ = kQ;
         return this;
     }
@@ -47,5 +47,10 @@ public class PointLight extends Light implements LightSource{
         } catch (Exception exception) {
             return null;
         }
+    }
+
+    @Override
+    public double getDistance(Point point) {
+        return point.distance(position);
     }
 }

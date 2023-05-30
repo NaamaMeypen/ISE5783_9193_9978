@@ -10,10 +10,19 @@ import static primitives.Util.isZero;
 
 public class SpotLight extends PointLight{
     private Vector direction;
+    public double shorten=1;
 
+
+    public SpotLight(Color intensity, Point position, Vector direction,double shorten)throws IllegalArgumentException {
+        super(intensity, position);
+        this.direction = direction.normalize();
+        if(shorten>1 || shorten<0)
+            throw new IllegalArgumentException("Factor has to be between 0-1");
+        this.shorten=shorten;
+    }
     public SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
-        this.direction = direction;
+        this.direction = direction.normalize();
     }
 
     protected SpotLight(Color intensity) {
@@ -33,7 +42,14 @@ public class SpotLight extends PointLight{
 
         double factor = Math.max(0, proj);
         Color i0 = super.getIntensity(p);
+        factor=pow(factor,shorten);
+
 
         return i0.scale(factor);
+    }
+
+    public SpotLight setNarrowBeam(int i) {
+        this.shorten=i;
+        return this;
     }
 }

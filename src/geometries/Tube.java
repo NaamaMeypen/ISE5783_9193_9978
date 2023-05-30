@@ -55,7 +55,7 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         //The overall idea is to form a quadratic equation that it's
         //solutions are the scale factor for the getPoint method.
         //We form this quadratic equation by setting two restriction on an arbitrary point:

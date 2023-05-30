@@ -3,6 +3,7 @@ import primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -75,7 +76,7 @@ public class Plane extends Geometry{
         return q0;
     }
 
-    @Override
+  /*  @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
@@ -97,5 +98,23 @@ public class Plane extends Geometry{
         if (t<=0)
             return null;
         return List.of(new GeoPoint(this, ray.getPoint(t)));
+    }
+    */
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+
+        if (ray.getP0().equals(q0) || isZero(this.normal.dotProduct(ray.getDir()))
+                || isZero(this.normal.dotProduct(q0.subtract(ray.getP0()))))
+            return null;
+
+        double t = (this.normal.dotProduct(q0.subtract(ray.getP0()))) / (this.normal.dotProduct(ray.getDir()));
+        if (t < 0)
+            return null;
+
+        //In case there is intersection with the plane return the point
+        GeoPoint p = new GeoPoint(this, ray.getPoint(t));
+        LinkedList<GeoPoint> result = new LinkedList<GeoPoint>();
+        result.add(p);
+        return result;
     }
 }

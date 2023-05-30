@@ -12,6 +12,8 @@ import static primitives.Util.isZero;
 public class Ray {
    final private Point p0;
     final private Vector dir;
+    private static final double EPS = 0.1;
+
     /**
      * Constructs a new ray with the given starting point and direction vector.
      * If the length of the direction vector is not 1, it will be normalized.
@@ -92,6 +94,16 @@ public class Ray {
         }
 
         return myPoint;
+    }
+    /**
+     * Ray constructor based on start point p0 and direction vector
+     * @param p0 start point
+     * @param dir direction vector
+     */
+    public Ray(Point p0, Vector n, Vector dir) {
+        double eps= dir.dotProduct(n)>=0?EPS:-EPS;
+        this.p0 = p0.add(n.scale(eps));
+        this.dir = dir.normalize();
     }
 }
 

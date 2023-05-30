@@ -83,7 +83,7 @@ public class Polygon extends Geometry {
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
    @Override
-   public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+   protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
          //If there's intersection with the plane so we have to substitute the ray equation into the plane equation
          // (replacing P) to get: (P0 + tV) . N + d = 0 and find the value of t:
          //

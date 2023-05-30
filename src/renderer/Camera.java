@@ -111,7 +111,7 @@ public class Camera {
         this.rayTracer = rayTracer;
         return this;
     }
-    public void renderImage()
+    public Camera renderImage()
     {
         try {
             if (imageWriter == null) {
@@ -135,6 +135,7 @@ public class Camera {
         } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
         }
+        return this;
     }
     public void printGrid(int interval, Color color)
     {
@@ -156,6 +157,7 @@ public class Camera {
     }
     private Color castRay(int nX, int nY, double j, double i)
     {
+
         Ray ray=constructRay(nX,nY,j,i);
         return rayTracer.traceRay(ray);
     }
