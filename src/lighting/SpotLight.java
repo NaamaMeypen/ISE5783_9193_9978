@@ -2,7 +2,6 @@ package lighting;
 
 import primitives.Color;
 import primitives.Point;
-import primitives.Util;
 import primitives.Vector;
 
 import static java.lang.Math.pow;
@@ -10,15 +9,15 @@ import static primitives.Util.isZero;
 
 public class SpotLight extends PointLight{
     private Vector direction;
-    public double shorten=1;
+    public double narrowBeam =1;
 
 
-    public SpotLight(Color intensity, Point position, Vector direction,double shorten)throws IllegalArgumentException {
+    public SpotLight(Color intensity, Point position, Vector direction,double narrowBeam)throws IllegalArgumentException {
         super(intensity, position);
         this.direction = direction.normalize();
-        if(shorten>1 || shorten<0)
+        if(narrowBeam>1 || narrowBeam<0)
             throw new IllegalArgumentException("Factor has to be between 0-1");
-        this.shorten=shorten;
+        this.narrowBeam =narrowBeam;
     }
     public SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
@@ -42,14 +41,14 @@ public class SpotLight extends PointLight{
 
         double factor = Math.max(0, proj);
         Color i0 = super.getIntensity(p);
-        factor=pow(factor,shorten);
+        factor=pow(factor, narrowBeam);
 
 
         return i0.scale(factor);
     }
 
-    public SpotLight setNarrowBeam(int i) {
-        this.shorten=i;
+    public SpotLight setNarrowBeam(int narrowBeam) {
+        this.narrowBeam =narrowBeam;
         return this;
     }
 }

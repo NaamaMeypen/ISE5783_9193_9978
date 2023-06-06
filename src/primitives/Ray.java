@@ -61,19 +61,7 @@ public class Ray {
         }
         return p0.add(dir.scale(t));
     }
-//    public Point findClosestPoint(List<Point> points){
-//        if(points.isEmpty())
-//            return null;
-//        Point p0= this.getP0();
-//        Point shortestDistance= points.get(0);
-//        for(Point pt : points){
-//            if (p0.distance(pt) < p0.distance(shortestDistance)) {
-//                shortestDistance = pt;
-//            }
-//        }
-//
-//        return shortestDistance;
-//    }
+
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
                 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
@@ -106,4 +94,16 @@ public class Ray {
         this.dir = dir.normalize();
     }
 }
-
+//    public Point findClosestPoint(List<Point> points){
+//        if(points.isEmpty())
+//            return null;
+//        Point p0= this.getP0();
+//        Point shortestDistance= points.get(0);
+//        for(Point pt : points){
+//            if (p0.distance(pt) < p0.distance(shortestDistance)) {
+//                shortestDistance = pt;
+//            }
+//        }
+//
+//        return shortestDistance;
+//    }

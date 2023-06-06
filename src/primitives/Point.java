@@ -5,6 +5,10 @@
 package primitives;
 
 public class Point {
+    public Double3 getXyz() {
+        return xyz;
+    }
+
     final Double3 xyz;
     public final static Point ZERO=new Point(0,0,0);
     /**
@@ -20,7 +24,7 @@ public class Point {
      * Constructs a point with the specified coordinates.
      * @param xyz the coordinates of the point
      */
-    Point(Double3 xyz) {
+    public Point(Double3 xyz) {
         this.xyz = new Double3(xyz.d1, xyz.d2, xyz.d3);
     }
 

@@ -1,16 +1,30 @@
 package renderer;
 
+import static java.awt.Color.BLUE;
 import static org.junit.jupiter.api.Assertions.*;
 
+import geometries.Geometry;
+import geometries.Sphere;
+import lighting.DirectionalLight;
 import org.junit.jupiter.api.Test;
 
 import primitives.*;
+import scene.Scene;
 
 /*Testing Camera Class
  */
 class CameraTest {
         static final Point ZERO_POINT = new Point(0, 0, 0);
+    private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
+    private Material material = new Material().setKd(0.5).setKs(0.5).setShininess(300);
 
+    private Scene scene1 = new Scene("Test scene");
+    private Geometry sphere = new Sphere(50d, new Point(0, 0, -50)) //
+            .setEmission(new Color(BLUE).reduce(2)) //
+            .setMaterial(material);
+    private Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+            .setVPSize(150, 150) //
+            .setVPDistance(1000);
         /**
          * Test method for
          * {@link renderer.Camera#constructRay(int, int, int, int)}.
@@ -50,5 +64,59 @@ class CameraTest {
                     camera.setVPSize(8, 8).constructRay(4, 4, 1, 0), badRay);
 
         }
+    @Test
+    void testRotateCamera() {
+        scene1.geometries.add(sphere);
+        scene1.lights.add(new DirectionalLight(spCL, new Vector(1, 1, -0.5)));
+        ImageWriter imageWriter = new ImageWriter("moveCameraSphereRotate", 500, 500);
+        camera1.rotateCamera(new Vector(0.1,0,0), 20);
+        camera1.setImageWriter(imageWriter) //
+
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage(); //
+        camera1.writeToImage();//
+        imageWriter = new ImageWriter("moveCameraSphereRotate2", 500, 500);
+        camera1.rotateCamera(new Vector(0.1,0,0), -40);
+        camera1.setImageWriter(imageWriter) //
+
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage(); //
+        camera1.writeToImage();//
+        imageWriter = new ImageWriter("moveCameraSphereRotate3", 500, 500);
+        camera1.rotateCamera(new Vector(0,1,0), 20);
+        camera1.setImageWriter(imageWriter) //
+
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage(); //
+        camera1.writeToImage();//
+    }
+
+    @Test
+    void testMoveCamera() {
+        scene1.geometries.add(sphere);
+        scene1.lights.add(new DirectionalLight(spCL, new Vector(1, 1, -0.5)));
+        ImageWriter imageWriter = new ImageWriter("moveCameraSphereUp", 500, 500);
+        camera1.moveCamera(new Vector(40,0,0));
+        camera1.setImageWriter(imageWriter) //
+
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage(); //
+        camera1.writeToImage();//
+        imageWriter = new ImageWriter("moveCameraSphereLeft", 500, 500);
+        camera1.moveCamera(new Vector(-40,40,0));
+        camera1.setImageWriter(imageWriter) //
+
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage(); //
+        camera1.writeToImage();//
+        imageWriter = new ImageWriter("moveCameraSphereBack", 500, 500);
+        camera1.moveCamera(new Vector(0,-40,1000));
+        camera1.setImageWriter(imageWriter) //
+
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage(); //
+        camera1.writeToImage();//
+
+    }
 
     }

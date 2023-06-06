@@ -161,5 +161,30 @@ public class Camera {
         Ray ray=constructRay(nX,nY,j,i);
         return rayTracer.traceRay(ray);
     }
+
+    /**
+     * Rotate camera through axis and angle of rotation
+     * @param axis Axis of rotation
+     * @param theta Angle of rotation (degrees)
+     */
+    public void rotateCamera(Vector axis, double theta)
+    {
+        //rotate all vector's using Vector.rotateVector Method
+        if (theta == 0) return; //no rotation
+        vUp = vUp.rotateVector(axis, theta);
+        vRight = vRight.rotateVector(axis, theta);
+        vTo = vTo.rotateVector(axis, theta);
+    }
+
+    /**
+     * Move camera (move point of view of the camera)
+     * @param move {@link Vector} Vertical distance
+     */
+    public void moveCamera(Vector move) {
+        //move Point0 according to params
+        Point myPoint = new Point(p0.getXyz());
+        myPoint=  myPoint.add(move);
+        p0 = myPoint;
+    }
 }
 
