@@ -84,7 +84,7 @@ public class Polygon extends Geometry {
 
    @Override
    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-         //If there's intersection with the plane so we have to substitute the ray equation into the plane equation
+         //If there's intersection with the plane, so we have to substitute the ray equation into the plane equation
          // (replacing P) to get: (P0 + tV) . N + d = 0 and find the value of t:
          //
          //t = -(P0 . N + d) / (V . N)

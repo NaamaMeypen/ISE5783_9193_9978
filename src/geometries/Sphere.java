@@ -19,6 +19,13 @@ final private Point center;
        super(radius);
        this.center = center;
     }
+
+    public Sphere(Point center, double radius) {
+        super(radius);
+        this.center = center;
+
+    }
+
     /**
      @return the center point of this Sphere object.
      */

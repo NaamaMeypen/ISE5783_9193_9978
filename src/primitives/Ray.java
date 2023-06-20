@@ -23,13 +23,7 @@ public class Ray {
      */
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
-        if(dir.lengthSquared()==1)
-        {
-            this.dir=dir;
-        }
-        else {
             this.dir = dir.normalize();
-        }
     }
     @Override
     public boolean equals(Object obj) {
@@ -94,16 +88,3 @@ public class Ray {
         this.dir = dir.normalize();
     }
 }
-//    public Point findClosestPoint(List<Point> points){
-//        if(points.isEmpty())
-//            return null;
-//        Point p0= this.getP0();
-//        Point shortestDistance= points.get(0);
-//        for(Point pt : points){
-//            if (p0.distance(pt) < p0.distance(shortestDistance)) {
-//                shortestDistance = pt;
-//            }
-//        }
-//
-//        return shortestDistance;
-//    }

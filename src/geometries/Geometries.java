@@ -54,8 +54,3 @@ public class Geometries extends Intersectable{
         return intersectionPoints;
     }
 }
-/*                for(GeoPoint gp:itemPoints)
-                {
-                    intersectionPoints.add(gp);
-
-                }*/

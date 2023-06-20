@@ -76,30 +76,6 @@ public class Plane extends Geometry{
         return q0;
     }
 
-  /*  @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        Point p0 = ray.getP0();
-        Vector v = ray.getDir();
-        Vector n = normal;
-        if (q0.equals(p0))
-            return null;
-        double nv = alignZero(n.dotProduct(v));
-        if (isZero(nv))
-            return null;
-
-        Vector P0_Q0 = q0.subtract(p0); // Q - P0
-        double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
-
-        if (isZero(nP0Q0))
-            return null;
-
-        double t = alignZero(nP0Q0 / nv);
-        // t should be bigger than 0
-        if (t<=0)
-            return null;
-        return List.of(new GeoPoint(this, ray.getPoint(t)));
-    }
-    */
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 

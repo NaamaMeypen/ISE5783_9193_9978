@@ -167,7 +167,5 @@ public class Vector extends Point {
 
         return new Vector( xPrime, yPrime, zPrime);
     }
-  /*  public String toString() {
-        return "Vector: "+xyz;
-    }*/
+
 }
