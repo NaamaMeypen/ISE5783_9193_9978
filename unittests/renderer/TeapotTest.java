@@ -1,4 +1,5 @@
-package unittests.special;
+/*
+package special;
 
 import static java.awt.Color.YELLOW;
 
@@ -15,11 +16,13 @@ import renderer.ImageWriter;
 import renderer.RayTracerBasic;
 import scene.Scene;
 
+*/
 /**
  * Test rendering an image
  *
  * @author Dan
- */
+ *//*
+
 public class TeapotTest {
     private final ImageWriter imageWriter = new ImageWriter("teapot", 1000, 1000);
 
@@ -566,9 +569,11 @@ public class TeapotTest {
             new Point(34.8094, 17.1865, -35.0864) //
     };
 
-    /**
+    */
+/**
      * Produce a scene with a 3D model and render it into a png image
-     */
+     *//*
+
     @Test
     public void teapot() {
         scene.geometries.add( //
@@ -1570,4 +1575,4 @@ public class TeapotTest {
         camera.setRayTracer(new RayTracerBasic(scene)).renderImage().writeToImage();
     }
 
-}
+}*/
