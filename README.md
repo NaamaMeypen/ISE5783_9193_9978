@@ -17,7 +17,7 @@ The project is organized into several packages:
 ## Design Patterns
 The project implements several key design patterns to ensure flexibility and maintainability:
 - Builder Pattern: Used to construct complex objects like scenes and geometries.
-- Composite Pattern: Allows for grouping of objects (e.g., shapes) so that they can be treated as a single entity.
+- Composite Pattern: Allows for grouping of objects (e.g., shapes) to be treated as a single entity (geometries).
 - Wrapper Pattern: Enhances or modifies the behavior of objects without altering their structure.
 
 ## Installation
